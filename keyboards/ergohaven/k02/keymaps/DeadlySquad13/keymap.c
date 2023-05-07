@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
-/* #include "oled/bongocat.c" */
-#include "oled/luna.c"
+#include "oled/bongocat.c"
+// #include "oled/luna.c"
 
 #define _BASE 0
 #define _NAV 1
@@ -9,8 +9,8 @@
 #define _GAME 4
 #define _NUM  5
 #define _FUNC 6
+#define _SETS 7
 
-#define _SEVEN 7
 #define _EIGHT 8
 #define _NINE 9
 #define _TEN 10
@@ -28,6 +28,7 @@
 #define GAME    DF(_GAME)
 #define NUM     MO(_NUM)
 #define FUNC    MO(_FUNC)
+#define SETS    OSL(_SETS)
 
 #define PREVWRD   LCTL(KC_LEFT)
 #define NEXTWRD   LCTL(KC_RIGHT)
@@ -38,6 +39,10 @@ enum custom_keycodes {
     BRACES,
     PARENTH,
     TMUX,
+    LANG1,
+    LANG2,
+    LANG3,
+    LANG4,
 };
 
 // --- Tap Dance. ---
@@ -173,10 +178,10 @@ void keyboard_post_init_user(void) {
 // --- Layers. ---
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_BASE] = LAYOUT_all( \
-            KC_GRV,   KC_1,    KC_2,      KC_3,       KC_4,         KC_5,                                        KC_6,          KC_7,         KC_8,          KC_9,        KC_0,    KC_BSPC, \
+            KC_GRV,   KC_1,    KC_2,      KC_3,       KC_4,         KC_5,                                        KC_6,          KC_7,         KC_8,          KC_9,        KC_0,    SETS, \
             GAME,     KC_Q,    KC_W,      KC_E,       KC_R,         KC_T,                                        KC_Y,          KC_U,         KC_I,          KC_O,        KC_P,    KC_BSLS, \
             KC_TAB,   KC_A,    TD_S_LGUI, TD_D_LALT,  TD_F_LCTL,    KC_G,                                        KC_H,          KC_J,         KC_K,          KC_L,        KC_SCLN, KC_QUOT, \
-            MEDIA,    KC_Z,    KC_X,      KC_C,       KC_V,         KC_B,                                        KC_N,          TD_M_RCTL,    TD_COMM_RALT,  TD_DOT_RGUI, KC_SLSH, KC_RSFT, \
+            MEDIA,    KC_Z,    KC_X,      KC_C,       KC_V,         KC_B,                                        KC_N,          TD_M_RCTL,    TD_COMM_RALT,  TD_DOT_RGUI, KC_SLSH, MEDIA, \
                                QK_BOOT,   TD_DEL_NUM, TD_ENTER_NAV, TD_SPACE_LSFT, TD_TMUX_SYMB,   TD_TMUX_SYMB, TD_SPACE_LSFT, TD_ENTER_NAV, KC_BSPC,       FUNC \
         ),
 
@@ -227,11 +232,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______, KC_F10,  KC_1,    KC_F2,   KC_F3,   _______,                         _______,  _______,  _______, _______,  _______,  _______,
                               _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______ \
         ),
+
+        [_SETS] = LAYOUT_all( \
+            _______, _______, _______, _______, _______, _______,                          _______, LANG1,   LANG2,   LANG3,    LANG4,    _______,
+            _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______,  _______,  _______,
+            _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______,  _______,  _______,
+            _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______,  _______,  _______,
+                              _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______ \
+        ),
 };
-
-
-
-
 
 #ifdef OLED_ENABLE
 
@@ -285,8 +294,8 @@ void render_layer_state(void) {
         case _FUNC:
             oled_write_P(PSTR("Fun\n"), false);
             break;
-        case _SEVEN:
-            oled_write_P(PSTR("Seven"), false);
+        case _SETS:
+            oled_write_P(PSTR("Sets\n"), false);
             break;
         case _EIGHT:
             oled_write_P(PSTR("Eight"), false);
@@ -329,8 +338,8 @@ bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_layer_state();
     } else {
-    /* render_bongocat();  // bongocat */
-    render_luna_status();  // luna
+    render_bongocat();  // bongocat
+    // render_luna_status();  // luna
 }
 
     return false;
@@ -385,6 +394,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 SEND_STRING(
                     SS_LCTL(SS_TAP(X_SPC))
+                );
+            }
+            break;
+
+        case LANG1:
+            if (record->event.pressed) {
+                SEND_STRING(
+                    SS_LALT(SS_LSFT(SS_TAP(X_7)))
+                );
+            }
+            break;
+
+        case LANG2:
+            if (record->event.pressed) {
+                SEND_STRING(
+                    SS_LALT(SS_LSFT(SS_TAP(X_8)))
+                );
+            }
+            break;
+
+        case LANG3:
+            if (record->event.pressed) {
+                SEND_STRING(
+                    SS_LALT(SS_LSFT(SS_TAP(X_9)))
+                );
+            }
+            break;
+
+        case LANG4:
+            if (record->event.pressed) {
+                SEND_STRING(
+                    SS_LALT(SS_LSFT(SS_TAP(X_0)))
                 );
             }
             break;

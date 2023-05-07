@@ -170,12 +170,13 @@ void keyboard_post_init_user(void) {
     dynamic_keymap_set_tap_dance(30, &td_DOT_RGUI);
 };
 
+// --- Layers. ---
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_BASE] = LAYOUT_all( \
             KC_GRV,   KC_1,    KC_2,      KC_3,       KC_4,         KC_5,                                        KC_6,          KC_7,         KC_8,          KC_9,        KC_0,    KC_BSPC, \
             GAME,     KC_Q,    KC_W,      KC_E,       KC_R,         KC_T,                                        KC_Y,          KC_U,         KC_I,          KC_O,        KC_P,    KC_BSLS, \
             KC_TAB,   KC_A,    TD_S_LGUI, TD_D_LALT,  TD_F_LCTL,    KC_G,                                        KC_H,          KC_J,         KC_K,          KC_L,        KC_SCLN, KC_QUOT, \
-            KC_LSFT,  KC_Z,    KC_X,      KC_C,       KC_V,         KC_B,                                        KC_N,          TD_M_RCTL,    TD_COMM_RALT,  TD_DOT_RGUI, KC_SLSH, KC_RSFT, \
+            MEDIA,    KC_Z,    KC_X,      KC_C,       KC_V,         KC_B,                                        KC_N,          TD_M_RCTL,    TD_COMM_RALT,  TD_DOT_RGUI, KC_SLSH, KC_RSFT, \
                                QK_BOOT,   TD_DEL_NUM, TD_ENTER_NAV, TD_SPACE_LSFT, TD_TMUX_SYMB,   TD_TMUX_SYMB, TD_SPACE_LSFT, TD_ENTER_NAV, KC_BSPC,       FUNC \
         ),
 
@@ -267,10 +268,10 @@ void render_layer_state(void) {
             oled_write_P(PSTR("Base\n"), false);
             break;
         case _SYMB:
-            oled_write_P(PSTR("Nav"), false);
+            oled_write_P(PSTR("Nav\n"), false);
             break;
         case _NAV:
-            oled_write_P(PSTR("Symb"), false);
+            oled_write_P(PSTR("Symb\n"), false);
             break;
         case _MEDIA:
             oled_write_P(PSTR("Media"), false);
@@ -306,7 +307,7 @@ void render_layer_state(void) {
             oled_write_P(PSTR("Thrtn"), false);
             break;
          case _FOURTEEN:
-            oled_write_P(PSTR("Frtn\n"), false);
+            oled_write_P(PSTR("Frtn"), false);
             break;
          case _FIFTEEN:
             oled_write_P(PSTR("Fiftn"), false);
@@ -391,4 +392,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     return true;
 }
+
+
 

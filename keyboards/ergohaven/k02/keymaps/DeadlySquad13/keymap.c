@@ -50,6 +50,7 @@ enum custom_keycodes {
 #define TD_ENTER_NAV TD(2)
 #define TD_TMUX_SYMB TD(3)
 #define TD_DEL_NUM TD(4)
+#define TD_CAPS_GAME TD(5)
 // #define TD_BSPC_FUN TD(30)
 
 // Home row mods.
@@ -142,6 +143,14 @@ void keyboard_post_init_user(void) {
         SLOW_TAPPING_TERM
     };
 
+    vial_tap_dance_entry_t td_CAPS_GAME= {
+        CAPS_WORD,
+        GAME,
+        KC_NO,
+        KC_NO,
+        SLOW_TAPPING_TERM
+    };
+
 
     vial_tap_dance_entry_t td_DEL_NUM = {
         KC_DEL,
@@ -164,6 +173,7 @@ void keyboard_post_init_user(void) {
     dynamic_keymap_set_tap_dance(2, &td_ENTER_NAV);
     dynamic_keymap_set_tap_dance(3, &td_TMUX_SYMB);
     dynamic_keymap_set_tap_dance(4, &td_DEL_NUM);
+    dynamic_keymap_set_tap_dance(5, &td_CAPS_GAME);
 
     // Home row mods.
     dynamic_keymap_set_tap_dance(25, &td_S_LGUI);
@@ -178,11 +188,11 @@ void keyboard_post_init_user(void) {
 // --- Layers. ---
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_BASE] = LAYOUT_all( \
-            KC_GRV,   KC_1,    KC_2,      KC_3,       KC_4,         KC_5,                                        KC_6,          KC_7,         KC_8,          KC_9,        KC_0,    SETS, \
-            GAME,     KC_Q,    KC_W,      KC_E,       KC_R,         KC_T,                                        KC_Y,          KC_U,         KC_I,          KC_O,        KC_P,    KC_BSLS, \
-            KC_TAB,   KC_A,    TD_S_LGUI, TD_D_LALT,  TD_F_LCTL,    KC_G,                                        KC_H,          KC_J,         KC_K,          KC_L,        KC_SCLN, KC_QUOT, \
-            MEDIA,    KC_Z,    KC_X,      KC_C,       KC_V,         KC_B,                                        KC_N,          TD_M_RCTL,    TD_COMM_RALT,  TD_DOT_RGUI, KC_SLSH, MEDIA, \
-                               QK_BOOT,   TD_DEL_NUM, TD_ENTER_NAV, TD_SPACE_LSFT, TD_TMUX_SYMB,   TD_TMUX_SYMB, TD_SPACE_LSFT, TD_ENTER_NAV, KC_BSPC,       FUNC \
+            KC_GRV,       KC_1,    KC_2,      KC_3,       KC_4,         KC_5,                                        KC_6,          KC_7,         KC_8,          KC_9,        KC_0,    SETS, \
+            TD_CAPS_GAME, KC_Q,    KC_W,      KC_E,       KC_R,         KC_T,                                        KC_Y,          KC_U,         KC_I,          KC_O,        KC_P,    KC_BSLS, \
+            KC_TAB,       KC_A,    TD_S_LGUI, TD_D_LALT,  TD_F_LCTL,    KC_G,                                        KC_H,          KC_J,         KC_K,          KC_L,        KC_SCLN, KC_QUOT, \
+            MEDIA,        KC_Z,    KC_X,      KC_C,       KC_V,         KC_B,                                        KC_N,          TD_M_RCTL,    TD_COMM_RALT,  TD_DOT_RGUI, KC_SLSH, MEDIA, \
+                                   QK_BOOT,   TD_DEL_NUM, TD_ENTER_NAV, TD_SPACE_LSFT, TD_TMUX_SYMB,   TD_TMUX_SYMB, TD_SPACE_LSFT, TD_ENTER_NAV, KC_BSPC,       FUNC \
         ),
 
         [_NAV] = LAYOUT_all( \
@@ -435,4 +445,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case KC_MINS:
+        // Home row mods.
+        case TD_S_LGUI:
+        case TD_D_LALT:
+        case TD_F_LCTL:
+        // Bottom row mods.
+        case TD_M_RCTL:
+        case TD_COMM_RALT:
+        case TD_DOT_RGUI:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
 
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+        // Some layers should preserve it too.
+        case NUM:
+        case SYMB:
+        case TD_DEL_NUM:
+        case TD_TMUX_SYMB:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}

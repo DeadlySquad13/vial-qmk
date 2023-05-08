@@ -67,6 +67,12 @@ enum custom_keycodes {
 #define MEDIUM_TAPPING_TERM 140
 #define SLOW_TAPPING_TERM 160
 
+// --- Combos. ---
+enum combo_keycodes {
+    CM_JK_ESCAPE,
+    CM_LSCLN_ENTER,
+};
+
 
 void keyboard_post_init_user(void) {
     vial_tap_dance_entry_t td_SPACE_LSFT = {
@@ -184,6 +190,7 @@ void keyboard_post_init_user(void) {
     dynamic_keymap_set_tap_dance(29, &td_COMM_RALT);
     dynamic_keymap_set_tap_dance(30, &td_DOT_RGUI);
 
+    // --- Combos. ---
     vial_combo_entry_t cm_JK_ESCAPE = {
         KC_J,
         KC_K,
@@ -192,7 +199,36 @@ void keyboard_post_init_user(void) {
         KC_ESC
     };
 
-    dynamic_keymap_set_combo(1, &cm_JK_ESCAPE);
+    vial_combo_entry_t cm_LSCLN_ENTER = {
+        KC_L,
+        KC_SCLN,
+        KC_NO,
+        KC_NO,
+        KC_ENTER
+    };
+
+    vial_combo_entry_t cm_DF_ESCAPE = {
+        TD_D_LALT,
+        TD_F_LCTL,
+        KC_NO,
+        KC_NO,
+        KC_ESC
+    };
+
+    vial_combo_entry_t cm_AS_ENTER = {
+        KC_A,
+        TD_S_LGUI,
+        KC_NO,
+        KC_NO,
+        KC_ENTER
+    };
+
+
+    dynamic_keymap_set_combo(0, &cm_JK_ESCAPE);
+    dynamic_keymap_set_combo(1, &cm_LSCLN_ENTER);
+
+    dynamic_keymap_set_combo(2, &cm_DF_ESCAPE);
+    dynamic_keymap_set_combo(3, &cm_AS_ENTER);
 };
 
 // --- Layers. ---
@@ -262,11 +298,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
 };
 
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    switch (combo_index) {
+        case CM_JK_ESCAPE:
+            if (get_highest_layer(default_layer_state) == _GAME) {
+                return false;
+            }
+    }
+
+    return true;
+}
+
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//     if (get_highest_layer(default_layer_state) == _GAME) {
+//         combo_disable();
+//     }
+//     else {
+//         combo_enable();
+//     }
+
+//     return state;
+// }
+
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
-        return OLED_ROTATION_180;  // Bongocat.
+        return OLED_ROTATION_0;  // Bongocat.
         // return OLED_ROTATION_270;  // Luna.
     }
     else {
@@ -277,10 +335,20 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 void render_layer_state(void) {
+    oled_write_ln_P(PSTR("BASE\n"), false);
+    oled_write_ln_P(PSTR("\n"), false);
+    switch(get_highest_layer(default_layer_state)) {
+        case _BASE:
+            oled_write_P(PSTR("QWERT"), false);
+            break;
+        case _GAME:
+            oled_write_P(PSTR("Game\n"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Undef\n"), false);
+    }
+
     // Print current mode
-    oled_write_ln_P(PSTR("K:02\n"), false);
-    oled_write_P(PSTR("\n"), false);
-    oled_write_ln_P(PSTR("v2.8\n"), false);
     oled_write_P(PSTR("\n\n"), false);
     oled_write_ln_P(PSTR("MODE\n"), false);
     oled_write_ln_P(PSTR(""), false);
@@ -293,10 +361,8 @@ void render_layer_state(void) {
     oled_write_P(PSTR("\n\n\n"), false);
     // Print current layer
     oled_write_ln_P(PSTR("LAYER"), false);
+
     switch (get_highest_layer(layer_state)) {
-        case _BASE:
-            oled_write_P(PSTR("Base\n"), false);
-            break;
         case _SYMB:
             oled_write_P(PSTR("Nav\n"), false);
             break;
@@ -346,8 +412,9 @@ void render_layer_state(void) {
             oled_write_P(PSTR("Sixtn"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("Undef"), false);
+            oled_write_ln_P(PSTR("Base"), false);
     }
+
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);

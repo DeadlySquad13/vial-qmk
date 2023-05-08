@@ -183,6 +183,16 @@ void keyboard_post_init_user(void) {
     dynamic_keymap_set_tap_dance(28, &td_M_RCTL);
     dynamic_keymap_set_tap_dance(29, &td_COMM_RALT);
     dynamic_keymap_set_tap_dance(30, &td_DOT_RGUI);
+
+    vial_combo_entry_t cm_JK_ESCAPE = {
+        KC_J,
+        KC_K,
+        KC_NO,
+        KC_NO,
+        KC_ESC
+    };
+
+    dynamic_keymap_set_combo(1, &cm_JK_ESCAPE);
 };
 
 // --- Layers. ---
@@ -255,14 +265,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_keyboard_master()) {
-    /* return OLED_ROTATION_180;  // bongocat */
-    return OLED_ROTATION_270;  // luna
-  }
-    else {
-    return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;  // Bongocat.
+        // return OLED_ROTATION_270;  // Luna.
     }
-  return rotation;
+    else {
+        return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
+    }
+
+    return rotation;
 }
 
 void render_layer_state(void) {
@@ -348,9 +359,9 @@ bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_layer_state();
     } else {
-    render_bongocat();  // bongocat
-    // render_luna_status();  // luna
-}
+        render_bongocat();  // bongocat
+        // render_luna_status();  // luna
+    }
 
     return false;
 }

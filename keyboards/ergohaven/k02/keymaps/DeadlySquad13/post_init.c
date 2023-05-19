@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-
 #include "tap_dance.c"
 #include "combos.c"
 

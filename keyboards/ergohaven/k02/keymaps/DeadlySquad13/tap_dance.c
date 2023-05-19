@@ -1,6 +1,7 @@
 #include "definitions.h"
 #include "tap_dance.h"
 #include "combos.h"
+#include "macroses.h"
 
 void post_init_tap_dance(void) {
     // Tap, Hold, Double tap, Tap + hold.

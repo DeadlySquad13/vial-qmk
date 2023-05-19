@@ -1,37 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "oled/bongocat.c"
-// #include "oled/luna.c"
-
-#define _BASE 0
-#define _NAV 1
-#define _SYMB 2
-#define _MEDIA 3
-#define _GAME 4
-#define _NUM  5
-#define _FUNC 6
-#define _SETS 7
-
-#define _EIGHT 8
-#define _NINE 9
-#define _TEN 10
-#define _ELEVEN 11
-#define _TWELVE 12
-#define _THIRTEEN 13
-#define _FOURTEEN 14
-#define _FIFTEEN 15
-#define _SIXTEEN 16
-
-#define BASE    DF(_BASE)
-#define NAV     MO(_NAV)
-#define SYMB    MO(_SYMB)
-#define MEDIA   MO(_MEDIA)
-#define GAME    DF(_GAME)
-#define NUM     MO(_NUM)
-#define FUNC    MO(_FUNC)
-#define SETS    OSL(_SETS)
-
-#define PREVWRD   LCTL(KC_LEFT)
-#define NEXTWRD   LCTL(KC_RIGHT)
+#include "definitions.h"
 
 enum custom_keycodes {
     NEXTSEN = USER00,
@@ -75,11 +43,12 @@ enum combo_keycodes {
 
 
 void keyboard_post_init_user(void) {
+    // Tap, Hold, Double tap, Tap + hold.
     vial_tap_dance_entry_t td_SPACE_LSFT = {
         KC_SPACE,
         KC_LSFT,
         KC_NO,
-        KC_NO,
+        KC_SPACE,
         MEDIUM_TAPPING_TERM
     };
 
@@ -87,7 +56,7 @@ void keyboard_post_init_user(void) {
         KC_ENTER,
         NAV,
         KC_NO,
-        KC_NO,
+        KC_ENTER,
         MEDIUM_TAPPING_TERM
     };
 
@@ -104,7 +73,7 @@ void keyboard_post_init_user(void) {
         KC_S,
         KC_LGUI,
         KC_NO,
-        KC_NO,
+        KC_S,
         SLOW_TAPPING_TERM
     };
 
@@ -112,7 +81,7 @@ void keyboard_post_init_user(void) {
         KC_D,
         KC_LALT,
         KC_NO,
-        KC_NO,
+        KC_D,
         MEDIUM_TAPPING_TERM
     };
 
@@ -120,7 +89,7 @@ void keyboard_post_init_user(void) {
         KC_F,
         KC_LCTL,
         KC_NO,
-        KC_NO,
+        KC_F,
         FAST_TAPPING_TERM
     };
 
@@ -129,7 +98,7 @@ void keyboard_post_init_user(void) {
         KC_M,
         KC_RCTL,
         KC_NO,
-        KC_NO,
+        KC_M,
         FAST_TAPPING_TERM
     };
 
@@ -137,7 +106,7 @@ void keyboard_post_init_user(void) {
         KC_COMM,
         KC_RALT,
         KC_NO,
-        KC_NO,
+        KC_COMM,
         MEDIUM_TAPPING_TERM
     };
 
@@ -145,7 +114,7 @@ void keyboard_post_init_user(void) {
         KC_DOT,
         KC_RGUI,
         KC_NO,
-        KC_NO,
+        KC_DOT,
         SLOW_TAPPING_TERM
     };
 
@@ -162,7 +131,7 @@ void keyboard_post_init_user(void) {
         KC_DEL,
         NUM,
         KC_NO,
-        KC_NO,
+        KC_DEL,
         MEDIUM_TAPPING_TERM
     };
 
@@ -250,11 +219,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
 
         [_SYMB] = LAYOUT_all( \
-            _______, _______, KC_AT,   KC_HASH, KC_DLR, _______,                         _______, _______, KC_CIRC, _______, _______,  QK_BOOT,
-            _______, KC_TILD, KC_LT,   KC_MINS, KC_GT,   KC_GRV,                         _______, KC_LBRC, KC_UNDS, KC_RBRC, _______,  _______,
-            _______, KC_PLUS, KC_LPRN, KC_EQL,  KC_RPRN, KC_BSLS,                        KC_PERC, KC_LCBR, KC_QUOT, KC_RCBR, KC_EXLM,  _______,
-            KC_LSFT, KC_DQUO, KC_ASTR, KC_SCLN, KC_SLSH, _______,                        KC_AMPR, KC_QUES, KC_COLN, KC_PIPE, _______,  QK_RBT,
-                              _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______ \
+            _______, _______,  KC_AT,   KC_HASH,  KC_DLR,  _______,                        _______,  _______,  KC_CIRC,  _______, _______, QK_BOOT,
+            _______, KC_TILD,  _KC_LT,  KC_MINS,  _KC_GT,   KC_GRV,                         _______,  KC_LBRC,  KC_UNDS,  KC_RBRC, _______, _______,
+            _______, KC_PLUS,  KC_LPRN, KC_EQL,   KC_RPRN, KC_BSLS,                        KC_PERC,  KC_LCBR,  _KC_QUOT, KC_RCBR, KC_EXLM, _______,
+            KC_LSFT, _KC_DQUO, KC_ASTR, _KC_SCLN, KC_SLSH, _______,                        _KC_AMPR, _KC_QUES, _KC_COLN, KC_PIPE, _______, QK_RBT,
+                                _______, _______, _______, _______, _______,       _______, _______, _______,  _______,  _______ \
         ),
 
         [_MEDIA] = LAYOUT_all(
@@ -320,120 +289,6 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 //     return state;
 // }
 
-#ifdef OLED_ENABLE
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_keyboard_master()) {
-        return OLED_ROTATION_0;  // Bongocat.
-        // return OLED_ROTATION_270;  // Luna.
-    }
-    else {
-        return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
-    }
-
-    return rotation;
-}
-
-void render_layer_state(void) {
-    oled_write_ln_P(PSTR("BASE\n"), false);
-    oled_write_ln_P(PSTR("\n"), false);
-    switch(get_highest_layer(default_layer_state)) {
-        case _BASE:
-            oled_write_P(PSTR("QWERT"), false);
-            break;
-        case _GAME:
-            oled_write_P(PSTR("Game\n"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undef\n"), false);
-    }
-
-    // Print current mode
-    oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("MODE\n"), false);
-    oled_write_ln_P(PSTR(""), false);
-    if (keymap_config.swap_lctl_lgui) {
-        oled_write_ln_P(PSTR("Mac"), false);
-    } else {
-        oled_write_ln_P(PSTR("Win"), false);
-    }
-
-    oled_write_P(PSTR("\n\n\n"), false);
-    // Print current layer
-    oled_write_ln_P(PSTR("LAYER"), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case _SYMB:
-            oled_write_P(PSTR("Nav\n"), false);
-            break;
-        case _NAV:
-            oled_write_P(PSTR("Symb\n"), false);
-            break;
-        case _MEDIA:
-            oled_write_P(PSTR("Media"), false);
-            break;
-        case _GAME:
-            oled_write_P(PSTR("Game\n"), false);
-            break;
-        case _NUM:
-            oled_write_P(PSTR("Num\n"), false);
-            break;
-        case _FUNC:
-            oled_write_P(PSTR("Fun\n"), false);
-            break;
-        case _SETS:
-            oled_write_P(PSTR("Sets\n"), false);
-            break;
-        case _EIGHT:
-            oled_write_P(PSTR("Eight"), false);
-            break;
-        case _NINE:
-            oled_write_P(PSTR("Nine\n"), false);
-            break;
-         case _TEN:
-            oled_write_P(PSTR("Ten\n"), false);
-            break;
-         case _ELEVEN:
-            oled_write_P(PSTR("Elevn"), false);
-            break;
-         case _TWELVE:
-            oled_write_P(PSTR("Twlve"), false);
-            break;
-         case _THIRTEEN:
-            oled_write_P(PSTR("Thrtn"), false);
-            break;
-         case _FOURTEEN:
-            oled_write_P(PSTR("Frtn"), false);
-            break;
-         case _FIFTEEN:
-            oled_write_P(PSTR("Fiftn"), false);
-            break;
-         case _SIXTEEN:
-            oled_write_P(PSTR("Sixtn"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Base"), false);
-    }
-
-    oled_write_P(PSTR("\n\n"), false);
-    led_t led_usb_state = host_keyboard_led_state();
-    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
-}
-
-
-// Used to draw on to the oled screen
-bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        render_layer_state();
-    } else {
-        render_bongocat();  // bongocat
-        // render_luna_status();  // luna
-    }
-
-    return false;
-}
-
-#endif
 
 
 // Custom keycodes.

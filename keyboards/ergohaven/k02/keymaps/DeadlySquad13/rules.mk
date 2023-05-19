@@ -2,6 +2,8 @@ VIAL_ENABLE = yes
 
 CAPS_WORD_ENABLE = yes
 
+SRC += led.c
+
 # ifeq ($(strip $(COMBO_ENABLE)), yes)
 #     SRC += combos.c
 # endif

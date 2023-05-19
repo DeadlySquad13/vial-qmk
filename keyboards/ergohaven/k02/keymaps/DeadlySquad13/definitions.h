@@ -45,3 +45,19 @@
 #define PREVWRD   LCTL(KC_LEFT)
 #define NEXTWRD   LCTL(KC_RIGHT)
 
+#ifndef DEFINITIONS_H
+#define DEFINITIONS_H
+
+enum custom_keycodes {
+    NEXTSEN = USER00,
+    PREDL,
+    BRACES,
+    PARENTH,
+    TMUX,
+    LANG1,
+    LANG2,
+    LANG3,
+    LANG4,
+};
+
+#endif

@@ -1,13 +1,12 @@
-VIAL_ENABLE = yes
+OLED_GAMING = yes
+COMBO_ENABLE = yes
 
-CAPS_WORD_ENABLE = yes
+ifeq ($(strip $(OLED_ENABLE)), yes)
+  SRC += font_block.c
+endif
 
-SRC += led.c
-SRC += macroses.c
-SRC += caps_word.c
-SRC += post_init.c
-
-# ifeq ($(strip $(COMBO_ENABLE)), yes)
-#     SRC += combos.c
-# endif
-
+ifeq ($(strip $(OLED_GAMING)), yes)
+  SRC += keyboards/ergohaven/k02/game/game.c
+  SRC += keyboards/ergohaven/k02/game/drawing.c
+  SRC += keyboards/ergohaven/k02/game/rndgen.c
+endif

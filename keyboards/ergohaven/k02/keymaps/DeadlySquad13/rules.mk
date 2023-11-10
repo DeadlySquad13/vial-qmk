@@ -1,7 +1,12 @@
 OLED_GAMING = yes
 COMBO_ENABLE = yes
 
+# ifeq ($(strip $(COMBO_ENABLE)), yes)
+#   SRC += combos.c
+# endif
+
 ifeq ($(strip $(OLED_ENABLE)), yes)
+  SRC += led.c
   SRC += font_block.c
 endif
 

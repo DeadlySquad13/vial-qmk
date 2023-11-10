@@ -1,5 +1,11 @@
 # Quantum Mechanical Keyboard Firmware
 
+## How to use this repo
+Use this command for easier cloning this huge repo.
+```sh
+git clone --depth 1 https://github.com/DeadlySquad13/vial-qmk --branch DeadlySquad13 --single-branch <FolderToCloneTo>
+```
+
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
 [![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
 [![Docs Status](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)

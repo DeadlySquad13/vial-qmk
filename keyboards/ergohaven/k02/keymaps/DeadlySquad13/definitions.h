@@ -20,18 +20,20 @@
 #define _SIXTEEN 16
 
 // Layers.
-#define BASE    DF(_BASE)
-#define NAV     MO(_NAV)
-#define SYMB    OSL(_SYMB)
-#define MEDIA   MO(_MEDIA)
-#define GAME    DF(_GAME)
-// #define NUM     MO(_NUM)
-#define FUNC    MO(_FUNC)
-#define SETS    OSL(_SETS)
+#define BASE      DF(_BASE)
+#define NAV       MO(_NAV)
+#define SYMB      OSL(_SYMB)
+#define MEDIA     MO(_MEDIA)
+#define GAME      DF(_GAME)
+// #define NUM       MO(_NUM)
+#define FUNC      MO(_FUNC)
+#define SETS      OSL(_SETS)
+// #define WORKSPACE OSL(_WORKSPACE)
 
 // Tap-dance layers.
-#define NUM_DEL LT(_NUM, KC_DEL)
-#define NAV_SPACE LT(_NAV, KC_SPACE)
+#define DEL_NUM LT(_NUM, KC_DEL)
+#define SPACE_NAV LT(_NAV, KC_SPACE)
+// #define WORKSPACE_NAV LT(_NAV, _WORKSPACE)
 
 // Mods.
 #define OSM_LSFT OSM(MOD_LSFT)
@@ -47,23 +49,24 @@
 #define MT_RGUI_L MT(MOD_RGUI, KC_L)
 
 // Mappings for universal layout symbol layer. Should be synchronized with ahk.
-#define _KC_EXLM LCAG(KC_1)
+#define _KC_EXLM LCAG(KC_F1)
 
-#define _KC_QUOT LCAG(KC_2)
-#define _KC_DQUO HYPR(KC_2)
+#define _KC_QUOT LCAG(KC_F2)
+#define _KC_DQUO HYPR(KC_F2)
 
-#define _KC_SCLN LCAG(KC_4)
+#define _KC_SCLN LCAG(KC_F4)
 
-#define _KC_COLN LCAG(KC_6)
+#define _KC_COLN LCAG(KC_F6)
+#define _KC_CIRC HYPR(KC_F6)
 
-#define _KC_QUES LCAG(KC_7)
-#define _KC_AMPR HYPR(KC_7)
+#define _KC_QUES LCAG(KC_F7)
+#define _KC_AMPR HYPR(KC_F7)
 
-#define _KC_ASTR LCAG(KC_8)
+#define _KC_ASTR LCAG(KC_F8)
 
-#define _KC_LPRN LCAG(KC_9)
+#define _KC_LPRN LCAG(KC_F9)
 
-#define _KC_RPRN LCAG(KC_0)
+#define _KC_RPRN LCAG(KC_F10)
 
 #define _KC_MINS LCAG(KC_F13)
 
@@ -71,7 +74,7 @@
 #define _KC_PLUS HYPR(KC_F14)
 
 #define _KC_LBRC LCAG(KC_F15)
-#define _KC_LCBR HYPR(KC_F15)
+#define _KC_LCBR HYPR(KC_F16)
 
 #define _KC_RBRC LCAG(KC_F16)
 #define _KC_RCBR HYPR(KC_F16)

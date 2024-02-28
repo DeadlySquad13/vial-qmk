@@ -1,6 +1,9 @@
 OLED_GAMING = yes
 COMBO_ENABLE = yes
 
+TAP_DANCE_ENABLE = yes
+TAPPING_TERM_PER_KEY = yes
+
 # ifeq ($(strip $(COMBO_ENABLE)), yes)
 #   SRC += combos.c
 # endif

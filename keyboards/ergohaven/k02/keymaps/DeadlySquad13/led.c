@@ -68,7 +68,7 @@ void render_layer_state(void) {
         case _SETS:
             oled_write_P(PSTR("Sets\n"), false);
             break;
-        case _EIGHT:
+        case _WORKSPACE:
             oled_write_P(PSTR("Workspace\n"), false);
             break;
         case _NINE:

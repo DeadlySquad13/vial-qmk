@@ -8,8 +8,8 @@
 #define _NUM  5
 #define _FUNC 6
 #define _SETS 7
+#define _WORKSPACE 8
 
-#define _EIGHT 8
 #define _NINE 9
 #define _TEN 10
 #define _ELEVEN 11

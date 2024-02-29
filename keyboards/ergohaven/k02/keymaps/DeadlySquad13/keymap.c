@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "layers.c"
 #include "definitions.h"
+#include "tap_dance.h"
 #include "macroses.h"
 
 const uint16_t PROGMEM combo_a_s[] = {KC_A, MT_LGUI_S, COMBO_END};
@@ -16,32 +17,6 @@ combo_t key_combos[] = {
     COMBO(combo_j_k, KC_ESC),
     COMBO(combo_l_scln, KC_ENTER),
 };
-
-// Tap Dance keycodes
-enum td_keycodes {
-    WORKSPACE_NAV // Our example key: `LALT` when held, `(` when tapped. Add additional keycodes for each tapdance.
-};
-
-// Define a type containing as many tapdance states as you need
-typedef enum {
-    TD_NONE,
-    TD_UNKNOWN,
-    TD_SINGLE_TAP,
-    TD_SINGLE_HOLD,
-    // TD_DOUBLE_SINGLE_TAP
-} td_state_t;
-
-// Create a global instance of the tapdance state type
-static td_state_t td_state;
-
-// Declare your tapdance functions:
-
-// Function to determine the current tapdance state
-td_state_t cur_dance(tap_dance_state_t *state);
-
-// `finished` and `reset` functions for each tapdance keycode
-void workspace_nav_finished(tap_dance_state_t *state, void *user_data);
-void workspace_nav_reset(tap_dance_state_t *state, void *user_data);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_BASE] = LAYOUT( \
@@ -68,13 +43,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______,  _______,  _______,  _______,  _______,    _______, _______,  _______,  _______,  _______ \
         ),
 
-        // [_WORKSPACE] = LAYOUT( \
-        //     _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______, _______,
-        //     _______, _______, _______, LGUI(KC_E), _______, _______,                           _______, _______, _______, _______, _______, _______,
-        //     _______, _______, LGUI(KC_S), LGUI(KC_D), LGUI(KC_F), _______,                 _______, _______, _______, _______, _______, _______,
-        //     _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______, _______,
-        //                        _______,  _______,  _______,  _______,  _______,    _______, _______,  _______,  _______,  _______ \
-        // ),
+        [_WORKSPACE] = LAYOUT( \
+          LGUI(KC_GRV), LGUI(KC_1), LGUI(KC_2),   LGUI(KC_3),      LGUI(KC_4),      LGUI(KC_5),                         LGUI(KC_6),      LGUI(KC_7),      LGUI(KC_8),      LGUI(KC_9),      LGUI(KC_0),    LGUI(KC_ESC), \
+          KC_ESC, LGUI(KC_Q), LGUI(KC_W),   LGUI(KC_E),      LGUI(KC_R),      LGUI(KC_T),                         LGUI(KC_Y),      LGUI(KC_U),      LGUI(KC_I),      LGUI(KC_O),      LGUI(KC_P),    LGUI(KC_LBRC), \
+          LGUI(KC_TAB), LGUI(KC_A), LGUI(KC_S),   LGUI(KC_D),      LGUI(KC_F),      LGUI(KC_G),                         LGUI(KC_H),      LGUI(KC_J),      LGUI(KC_K),      LGUI(KC_L),      LGUI(KC_SCLN), LGUI(KC_QUOT), \
+          MEDIA,        LGUI(KC_Z), LGUI(KC_X),   LGUI(KC_C),      LGUI(KC_V),      LGUI(KC_B),                         LGUI(KC_N),      LGUI(KC_M),      LGUI(KC_COMM),   LGUI(KC_DOT),    LGUI(KC_SLSH), LGUI(KC_RSFT), \
+                        FUNC,   DEL_NUM,   OSM_LSFT,  TD(WORKSPACE_NAV), SYMB,    SYMB, SPACE_NAV, OSM_RSFT,  KC_BSPC,   FUNC      \
+        ),
 
         [_MEDIA] = LAYOUT(
             _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______, _______,
@@ -117,70 +92,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______ \
         ),
 };
-// https://docs.qmk.fm/#/feature_tap_dance?id=example-5
-// Determine the tapdance state to return
-td_state_t cur_dance(tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
-        else return TD_SINGLE_HOLD;
-    }
-
-    // if (state->count == 2) return TD_DOUBLE_SINGLE_TAP;
-    else return TD_UNKNOWN; // Any number higher than the maximum state value you return above
-}
-
-// Handle the possible states for each tapdance keycode you define.
-void workspace_nav_finished(tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case TD_SINGLE_TAP:
-            add_oneshot_mods(MOD_BIT(KC_LGUI));
-            break;
-        case TD_SINGLE_HOLD:
-            layer_on(_NAV);
-            break;
-        // case TD_DOUBLE_SINGLE_TAP: // Allow nesting of 2 parens `((` within tapping term
-        //     tap_code16(KC_LPRN);
-        //     register_code16(KC_LPRN);
-        //     break;
-        default:
-            break;
-    }
-}
-
-void workspace_nav_reset(tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case TD_SINGLE_TAP:
-            // del_oneshot_mods(MOD_BIT(KC_LGUI));
-            break;
-        case TD_SINGLE_HOLD:
-            layer_off(_NAV);
-            break;
-        // case TD_DOUBLE_SINGLE_TAP:
-        //     unregister_code16(KC_LPRN);
-        //     break;
-        default:
-            break;
-    }
-}
-
-// Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
-tap_dance_action_t tap_dance_actions[] = {
-    [WORKSPACE_NAV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, workspace_nav_finished, workspace_nav_reset)
-};
-
-
-#define ULTRA_FAST_TAPPING_TERM 110
-#define FAST_TAPPING_TERM 130
-#define MEDIUM_TAPPING_TERM 140
-#define SLOW_TAPPING_TERM 160
-
-// Set tapping term for tap-dance keys.
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case WORKSPACE_NAV:
-            return ULTRA_FAST_TAPPING_TERM;
-        default:
-            return TAPPING_TERM;
-    }
-}

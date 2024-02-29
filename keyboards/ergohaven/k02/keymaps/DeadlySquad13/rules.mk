@@ -3,6 +3,9 @@ COMBO_ENABLE = yes
 
 TAP_DANCE_ENABLE = yes
 TAPPING_TERM_PER_KEY = yes
+SRC += tap_dance.c
+
+SRC += macroses.c
 
 # ifeq ($(strip $(COMBO_ENABLE)), yes)
 #   SRC += combos.c

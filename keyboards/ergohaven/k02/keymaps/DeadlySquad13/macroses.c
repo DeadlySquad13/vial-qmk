@@ -1,12 +1,31 @@
 #include QMK_KEYBOARD_H
+#include "definitions.h"
 #include "macroses.h"
+#include "tap_dance.h"
 
 // Custom keycodes.
-bool process_record_user(custom_keycodes keycode, keyrecord_t* record) {
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {
         extern uint32_t tap_timer;
         tap_timer = timer_read32();
+    } else {
+        if (is_oneshot_layer_active()) {
+            // Imitating osl because set_oneshot_layer in tap_dance isn't reset
+            // automatically...
+            if (IS_LAYER_ON(_WORKSPACE)) {
+                layer_off(_WORKSPACE);
+            }
+        }
+        // if (is_oneshot_layer_active() && IS_LAYER_ON(_WORKSPACE)) {
+        //     clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        //     reset_oneshot_layer();
+        //     SEND_STRING(". ");
+        //     layer_off(_WORKSPACE);
+
+        //     return true;
+        // }
     }
+
     // TODO: Add strict type to keycode so that switch corrects when we assign
     // unexisting keycode.
     switch (keycode) {

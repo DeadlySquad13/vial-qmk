@@ -48,10 +48,10 @@ void render_layer_state(void) {
 
     switch (get_highest_layer(layer_state)) {
         case _SYMB:
-            oled_write_P(PSTR("Nav\n"), false);
+            oled_write_P(PSTR("Symb\n"), false);
             break;
         case _NAV:
-            oled_write_P(PSTR("Symb\n"), false);
+            oled_write_P(PSTR("Nav\n"), false);
             break;
         case _MEDIA:
             oled_write_P(PSTR("Media"), false);
@@ -69,7 +69,7 @@ void render_layer_state(void) {
             oled_write_P(PSTR("Sets\n"), false);
             break;
         case _WORKSPACE:
-            oled_write_P(PSTR("Workspace\n"), false);
+            oled_write_P(PSTR("WSpce\n"), false);
             break;
         case _NINE:
             oled_write_P(PSTR("Nine\n"), false);

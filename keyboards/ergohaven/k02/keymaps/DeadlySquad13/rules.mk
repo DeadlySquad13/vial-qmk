@@ -7,6 +7,8 @@ SRC += tap_dance.c
 
 SRC += macroses.c
 
+OS_DETECTION_ENABLE = yes
+
 # ifeq ($(strip $(COMBO_ENABLE)), yes)
 #   SRC += combos.c
 # endif

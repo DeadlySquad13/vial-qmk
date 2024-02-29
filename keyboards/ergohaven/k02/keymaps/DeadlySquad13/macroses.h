@@ -7,6 +7,8 @@ enum custom_keycodes {
     BRACES,
     PARENTH,
     TMUX,
+    WEZTERM,
+    VIM_WIN,
     LANG0,
     LANG1,
     LANG2,

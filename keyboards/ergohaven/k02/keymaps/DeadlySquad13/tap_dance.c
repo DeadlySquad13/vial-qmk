@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "tap_dance.h"
 #include "definitions.h"
+#include "os_detection.h"
 
 // https://docs.qmk.fm/#/feature_tap_dance?id=example-5
 // Determine the tapdance state to return
@@ -19,9 +20,12 @@ void workspace_nav_finished(tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case TD_SINGLE_TAP:
-            // add_oneshot_mods(MOD_BIT(KC_LGUI));
             set_oneshot_layer(_WORKSPACE, ONESHOT_START);
-            // layer_on(_WORKSPACE);
+            if (detected_host_os() != OS_WINDOWS) {
+                add_oneshot_mods(MOD_BIT(KC_LGUI));
+            } else {
+                add_oneshot_mods(MOD_BIT(KC_LALT));
+            }
             break;
         case TD_SINGLE_HOLD:
             layer_on(_NAV);
@@ -37,9 +41,6 @@ void workspace_nav_finished(tap_dance_state_t *state, void *user_data) {
 
 void workspace_nav_reset(tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
-        case TD_SINGLE_TAP:
-            // layer_off(_WORKSPACE);
-            break;
         case TD_SINGLE_HOLD:
             layer_off(_NAV);
             break;

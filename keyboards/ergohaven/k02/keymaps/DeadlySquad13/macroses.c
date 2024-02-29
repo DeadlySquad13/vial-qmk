@@ -2,6 +2,7 @@
 #include "definitions.h"
 #include "macroses.h"
 #include "tap_dance.h"
+#include "os_detection.h"
 
 // Custom keycodes.
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -65,9 +66,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             break;
 
         case TMUX:
+            if (detected_host_os() != OS_WINDOWS) {
+                del_oneshot_mods(MOD_BIT(KC_LGUI));
+            } else {
+                del_oneshot_mods(MOD_BIT(KC_LALT));
+            }
             if (record->event.pressed) {
                 SEND_STRING(
                     SS_LCTL(SS_TAP(X_SPC))
+                );
+            }
+            break;
+
+        case WEZTERM:
+            if (detected_host_os() != OS_WINDOWS) {
+                del_oneshot_mods(MOD_BIT(KC_LGUI));
+            } else {
+                del_oneshot_mods(MOD_BIT(KC_LALT));
+            }
+            if (record->event.pressed) {
+                SEND_STRING(
+                    SS_LALT(SS_TAP(X_SPC))
+                );
+            }
+            break;
+
+        case VIM_WIN:
+            if (detected_host_os() != OS_WINDOWS) {
+                del_oneshot_mods(MOD_BIT(KC_LGUI));
+            } else {
+                del_oneshot_mods(MOD_BIT(KC_LALT));
+            }
+            if (record->event.pressed) {
+                SEND_STRING(
+                    SS_LCTL(SS_TAP(X_Q)) // Ctrl-W for vim's windows.
                 );
             }
             break;

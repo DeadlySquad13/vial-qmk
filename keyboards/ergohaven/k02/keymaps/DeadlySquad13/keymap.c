@@ -43,11 +43,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______,  _______,  _______,  _______,  _______,    _______, _______,  _______,  _______,  _______ \
         ),
 
+        // [_WORKSPACE] = LAYOUT( \
+        //   LGUI(KC_GRV), LGUI(KC_1), LGUI(KC_2),   LGUI(KC_3),      LGUI(KC_4),      LGUI(KC_5),                         LGUI(KC_6),      LGUI(KC_7),      LGUI(KC_8),      LGUI(KC_9),      LGUI(KC_0),    LGUI(KC_ESC), \
+        //   KC_ESC, LGUI(KC_Q), LGUI(KC_W),   LGUI(KC_E),      LGUI(KC_R),      LGUI(KC_T),                         LGUI(KC_Y),      LGUI(KC_U),      LGUI(KC_I),      LGUI(KC_O),      LGUI(KC_P),    LGUI(KC_LBRC), \
+        //   LGUI(KC_TAB), LGUI(KC_A), LGUI(KC_S),   LGUI(KC_D),      LGUI(KC_F),      LGUI(KC_G),                         LGUI(KC_H),      LGUI(KC_J),      LGUI(KC_K),      LGUI(KC_L),      LGUI(KC_SCLN), LGUI(KC_QUOT), \
+        //   MEDIA,        LGUI(KC_Z), LGUI(KC_X),   LGUI(KC_C),      LGUI(KC_V),      LGUI(KC_B),                         LGUI(KC_N),      LGUI(KC_M),      LGUI(KC_COMM),   LGUI(KC_DOT),    LGUI(KC_SLSH), LGUI(KC_RSFT), \
+        //                 FUNC,   DEL_NUM,   OSM_LSFT,  TD(WORKSPACE_NAV), SYMB,    SYMB, SPACE_NAV, OSM_RSFT,  KC_BSPC,   FUNC      \
+        // ),
+
         [_WORKSPACE] = LAYOUT( \
-          LGUI(KC_GRV), LGUI(KC_1), LGUI(KC_2),   LGUI(KC_3),      LGUI(KC_4),      LGUI(KC_5),                         LGUI(KC_6),      LGUI(KC_7),      LGUI(KC_8),      LGUI(KC_9),      LGUI(KC_0),    LGUI(KC_ESC), \
-          KC_ESC, LGUI(KC_Q), LGUI(KC_W),   LGUI(KC_E),      LGUI(KC_R),      LGUI(KC_T),                         LGUI(KC_Y),      LGUI(KC_U),      LGUI(KC_I),      LGUI(KC_O),      LGUI(KC_P),    LGUI(KC_LBRC), \
-          LGUI(KC_TAB), LGUI(KC_A), LGUI(KC_S),   LGUI(KC_D),      LGUI(KC_F),      LGUI(KC_G),                         LGUI(KC_H),      LGUI(KC_J),      LGUI(KC_K),      LGUI(KC_L),      LGUI(KC_SCLN), LGUI(KC_QUOT), \
-          MEDIA,        LGUI(KC_Z), LGUI(KC_X),   LGUI(KC_C),      LGUI(KC_V),      LGUI(KC_B),                         LGUI(KC_N),      LGUI(KC_M),      LGUI(KC_COMM),   LGUI(KC_DOT),    LGUI(KC_SLSH), LGUI(KC_RSFT), \
+          KC_GRV, KC_1, KC_2,   KC_3,      KC_4,      KC_5,                         KC_6,      KC_7,      KC_8,      KC_9,      KC_0,    KC_ESC, \
+          KC_ESC, KC_Q, KC_W,   KC_E,      KC_R,      KC_T,                         KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,    KC_LBRC, \
+          KC_TAB, KC_A, KC_S,   KC_D,      KC_F,      KC_G,                         KC_H,      TMUX,      WEZTERM,   VIM_WIN,   KC_SCLN, KC_QUOT, \
+          MEDIA,  KC_Z, KC_X,   KC_C,      KC_V,      KC_B,                         KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH, KC_RSFT, \
                         FUNC,   DEL_NUM,   OSM_LSFT,  TD(WORKSPACE_NAV), SYMB,    SYMB, SPACE_NAV, OSM_RSFT,  KC_BSPC,   FUNC      \
         ),
 

@@ -143,6 +143,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 );
             }
             break;
+
+        case COPY:
+            if (record->event.pressed) {
+                SEND_STRING(
+                    SS_LCTL(SS_TAP(X_X))
+                );
+            }
+            return false;
+
+        case PASTE:
+            if (record->event.pressed) {
+                SEND_STRING(
+                    SS_LCTL(SS_TAP(X_T))
+                );
+            }
+            return false;
+
+        case CUT:
+            if (record->event.pressed) {
+                SEND_STRING(
+                    SS_LCTL(SS_TAP(X_Z))
+                );
+            }
+            return false;
     }
 
     return true;

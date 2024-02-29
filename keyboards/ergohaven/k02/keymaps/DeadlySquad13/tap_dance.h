@@ -28,7 +28,7 @@ void workspace_nav_finished(tap_dance_state_t *state, void *user_data);
 void workspace_nav_reset(tap_dance_state_t *state, void *user_data);
 
 
-#define ULTRA_FAST_TAPPING_TERM 110
+#define ULTRA_FAST_TAPPING_TERM 100
 #define FAST_TAPPING_TERM 130
 #define MEDIUM_TAPPING_TERM 140
 #define SLOW_TAPPING_TERM 160

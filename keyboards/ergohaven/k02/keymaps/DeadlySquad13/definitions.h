@@ -74,7 +74,7 @@
 #define _KC_PLUS HYPR(KC_F14)
 
 #define _KC_LBRC LCAG(KC_F15)
-#define _KC_LCBR HYPR(KC_F16)
+#define _KC_LCBR HYPR(KC_F15)
 
 #define _KC_RBRC LCAG(KC_F16)
 #define _KC_RCBR HYPR(KC_F16)

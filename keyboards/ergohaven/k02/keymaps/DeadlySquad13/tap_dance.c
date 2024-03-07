@@ -62,7 +62,17 @@ tap_dance_action_t tap_dance_actions[] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case WORKSPACE_NAV:
+        case TD(WORKSPACE_NAV):
             return ULTRA_FAST_TAPPING_TERM;
+        case MT_LGUI_S:
+        case MT_RGUI_L:
+            return FAST_TAPPING_TERM;
+        case MT_LALT_D:
+        case MT_RALT_K:
+            return MEDIUM_TAPPING_TERM;
+        case MT_LCTL_F:
+        case MT_RCTL_J:
+            return SLOW_TAPPING_TERM;
         default:
             return TAPPING_TERM;
     }

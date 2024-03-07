@@ -42,9 +42,9 @@
 // Home-mods (home-row tap dance modifiers).
 #define MT_LGUI_S MT(MOD_LGUI, KC_S)
 #define MT_LALT_D MT(MOD_LALT, KC_D)
-#define MT_LTCL_F MT(MOD_LCTL, KC_F)
+#define MT_LCTL_F MT(MOD_LCTL, KC_F)
 
-#define MT_RTCL_J MT(MOD_RCTL, KC_J)
+#define MT_RCTL_J MT(MOD_RCTL, KC_J)
 #define MT_RALT_K MT(MOD_RALT, KC_K)
 #define MT_RGUI_L MT(MOD_RGUI, KC_L)
 

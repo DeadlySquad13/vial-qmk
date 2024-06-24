@@ -73,8 +73,7 @@
 #define _KC_EQL LCAG(KC_F14)
 #define _KC_PLUS HYPR(KC_F14)
 
-#define _KC_LBRC LCAG(KC_F15)
-#define _KC_LCBR HYPR(KC_F15)
+// F15 not working on Linux.
 
 #define _KC_RBRC LCAG(KC_F16)
 #define _KC_RCBR HYPR(KC_F16)
@@ -87,6 +86,9 @@
 #define _KC_PIPE HYPR(KC_F19)
 
 #define _KC_SLSH LCAG(KC_F20)
+
+#define _KC_LBRC LCAG(KC_F21)
+#define _KC_LCBR HYPR(KC_F21)
 
 #define PREVWRD   LCTL(KC_LEFT)
 #define NEXTWRD   LCTL(KC_RIGHT)

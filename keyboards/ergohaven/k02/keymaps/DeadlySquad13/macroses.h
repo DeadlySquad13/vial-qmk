@@ -19,6 +19,8 @@ enum custom_keycodes {
     COPY,
     CUT,
     PASTE,
+
+    CAPS_WORD,
 };
 
 #endif

@@ -3,6 +3,7 @@
 #include "macroses.h"
 #include "tap_dance.h"
 #include "os_detection.h"
+#include "caps_word.h"
 
 // Custom keycodes.
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -165,6 +166,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 SEND_STRING(
                     SS_LCTL(SS_TAP(X_Z))
                 );
+            }
+            return false;
+
+        case CAPS_WORD:
+            if (record->event.pressed) {
+                toggle_caps_word_mode(CAPS_WORD_MODE_DEFAULT);
             }
             return false;
     }

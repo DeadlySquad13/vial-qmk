@@ -7,6 +7,9 @@ SRC += tap_dance.c
 
 SRC += macroses.c
 
+CAPS_WORD_ENABLE = yes
+SRC += caps_word.c
+
 OS_DETECTION_ENABLE = yes
 
 # ifeq ($(strip $(COMBO_ENABLE)), yes)

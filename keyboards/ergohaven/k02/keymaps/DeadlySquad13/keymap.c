@@ -10,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_GRV, KC_1, KC_2,      KC_3,      KC_4,      KC_5,                             KC_6,      KC_7,      KC_8,      KC_9,      KC_0,    SETS, \
           GAME,   KC_Q, KC_W,      KC_E,      KC_R,      KC_T,                             KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,    KC_LBRC, \
           KC_TAB, KC_A, MT_LGUI_S, MT_LALT_D, MT_LCTL_F, KC_G,                             KC_H,      MT_RCTL_J, MT_RALT_K, MT_RGUI_L, KC_SCLN, KC_QUOT, \
-          MEDIA,  KC_Z, KC_X,      KC_C,      KC_V,      KC_B,                             KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH, KC_RSFT, \
+          MEDIA,  KC_Z, KC_X,      KC_C,      KC_V,      KC_B,                             KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH, CAPS_WORD, \
                         FUNC,      DEL_NUM,   OSM_LSFT,  TD(WORKSPACE_NAV), SYMB,    SYMB, SPACE_NAV, OSM_RSFT,  KC_BSPC,   FUNC      \
         ),
 

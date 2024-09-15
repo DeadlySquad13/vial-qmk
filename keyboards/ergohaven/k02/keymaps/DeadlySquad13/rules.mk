@@ -8,6 +8,7 @@ SRC += tap_dance.c
 SRC += macroses.c
 
 CAPS_WORD_ENABLE = yes
+# FIX: Doesn't work with our oms shifts.
 BOTH_SHIFTS_TURNS_ON_CAPS_WORD = yes
 SRC += caps_word.c
 

@@ -24,6 +24,9 @@ enum custom_keycodes {
     CAPS_WORD_CAMEL_CASE,
     CAPS_WORD_TITLE_CASE,
     CAPS_WORD_SNAKE_CASE,
+    CAPS_WORD_DASH_CASE,
+    CAPS_WORD_SLASH_CASE,
+    // CAPS_WORD_BACKSLASH_CASE,
 };
 
 #endif

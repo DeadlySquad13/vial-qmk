@@ -183,15 +183,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
         case CAPS_WORD_TITLE_CASE:
             if (record->event.pressed) {
-                toggle_caps_word_mode(CWMODE_SPACE_SUB);
+                // QUESTION: Why doesn't work this way?
+                // toggle_caps_word_mode(CWMODE_SPACE_SUB);
+                toggle_caps_word_space_sub(KC_SPACE);
             }
             return false;
 
         case CAPS_WORD_SNAKE_CASE:
             if (record->event.pressed) {
-                toggle_caps_word_mode(CWMODE_SPACE_SUB);
+                toggle_caps_word_space_sub(KC_UNDS);
             }
             return false;
+
+        case CAPS_WORD_DASH_CASE:
+            if (record->event.pressed) {
+                // TODO: Works only while hdn lyout is set on system level.
+                toggle_caps_word_space_sub(KC_N);
+                // toggle_caps_word_space_sub(_KC_MINS);
+            }
+            return false;
+
+        case CAPS_WORD_SLASH_CASE:
+            if (record->event.pressed) {
+                // TODO: Works only while hdn lyout is set on system level.
+                toggle_caps_word_space_sub(KC_Y);
+            }
+            return false;
+
+        // TODO: How to pass two keys?
+        /* case CAPS_WORD_BACKSLASH_CASE:
+            if (record->event.pressed) {
+                toggle_caps_word_space_sub(KC_PLUS);
+            }
+            return false; */
     }
 
     return true;

@@ -4,6 +4,7 @@
 
 caps_word_mode_t g_caps_word_mode = CAPS_WORD_MODE_DEFAULT;
 bool g_caps_word_last_key_was_space = false;
+bool g_caps_word_first_key = false;
 uint16_t g_caps_word_space_substitute = CAPS_WORD_SPACE_SUB_DEFAULT;
 
 bool caps_word_press_user(uint16_t keycode) {
@@ -48,7 +49,9 @@ bool caps_word_press_user(uint16_t keycode) {
             }
         case CWMODE_CONSTANT_CASE:
         case CWMODE_CAMEL_CASE:
+        case CWMODE_TITLE_CASE:
         case CWMODE_SPACE_SUB:
+        case CWMODE_PASCAL_CASE:
             switch (keycode) {
                 case KC_SPACE:
                     // If the last key was NOT a space, then register it having been pressed and
@@ -65,6 +68,17 @@ bool caps_word_press_user(uint16_t keycode) {
 
                 // Keys that do NOT break the Caps Word state
                 case KC_A ... KC_Z:
+                    if (g_caps_word_first_key) {
+                        switch (g_caps_word_mode) {
+                            case CWMODE_TITLE_CASE:
+                            case CWMODE_PASCAL_CASE:
+                                add_oneshot_mods(MOD_LSFT);
+                                g_caps_word_first_key = false;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 case KC_1 ... KC_0:
                 // case KC_DASH:
                 case KC_UNDERSCORE:
@@ -74,12 +88,17 @@ bool caps_word_press_user(uint16_t keycode) {
                     // in all cases, first we need to remove that space and then replace it with
                     // another character or another operating mode (ex. OSM)
                     if (g_caps_word_last_key_was_space) {
-                        tap_code16(KC_BACKSPACE);
+                        if (g_caps_word_mode != CWMODE_TITLE_CASE) {
+                            tap_code16(KC_BACKSPACE);
+                        }
+
                         switch (g_caps_word_mode) {
                             case CWMODE_CONSTANT_CASE:
                                 tap_code16(KC_UNDERSCORE);
                                 break;
                             case CWMODE_CAMEL_CASE:
+                            case CWMODE_TITLE_CASE:
+                            case CWMODE_PASCAL_CASE:
                                 add_oneshot_mods(MOD_LSFT);
                                 break;
                             case CWMODE_SPACE_SUB:
@@ -113,10 +132,12 @@ void caps_word_set_user(bool active) {
     if (active) {
         // Do something when Caps Word activates.
         caps_word_on();
+        g_caps_word_first_key = true;
         g_caps_word_last_key_was_space = false;
     } else {
         // Do something when Caps Word deactivates.
         caps_word_off();
+        g_caps_word_first_key = false;
         // Go back to make sure that when it turns on next without any sepcification (ex. through
         // the CAPS_WORD key), it's in the default settings
         g_caps_word_mode = CAPS_WORD_MODE_DEFAULT;
@@ -139,6 +160,7 @@ bool toggle_caps_word_mode(caps_word_mode_t new_mode) {
         caps_word_on();
         g_caps_word_mode = new_mode;
     }
+
     return is_caps_word_on();
 }
 

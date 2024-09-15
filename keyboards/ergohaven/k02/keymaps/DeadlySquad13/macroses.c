@@ -183,9 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
         case CAPS_WORD_TITLE_CASE:
             if (record->event.pressed) {
-                // QUESTION: Why doesn't work this way?
-                // toggle_caps_word_mode(CWMODE_SPACE_SUB);
-                toggle_caps_word_space_sub(KC_SPACE);
+                toggle_caps_word_mode(CWMODE_TITLE_CASE);
             }
             return false;
 
@@ -210,12 +208,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
 
-        // TODO: How to pass two keys?
+        // TODO: How to pass two keys? Our macro keys _something don't work
+        // above.
         /* case CAPS_WORD_BACKSLASH_CASE:
             if (record->event.pressed) {
-                toggle_caps_word_space_sub(KC_PLUS);
+                toggle_caps_word_space_sub(some macro);
             }
             return false; */
+
+        case CAPS_WORD_PASCAL_CASE:
+            if (record->event.pressed) {
+                // TODO: Works only while hdn lyout is set on system level.
+                toggle_caps_word_mode(CWMODE_PASCAL_CASE);
+            }
+            return false;
+
     }
 
     return true;

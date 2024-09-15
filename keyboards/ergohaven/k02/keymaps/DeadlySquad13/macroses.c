@@ -174,6 +174,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 toggle_caps_word_mode(CAPS_WORD_MODE_DEFAULT);
             }
             return false;
+
+        case CAPS_WORD_CAMEL_CASE:
+            if (record->event.pressed) {
+                toggle_caps_word_mode(CWMODE_CAMEL_CASE);
+            }
+            return false;
+
+        case CAPS_WORD_TITLE_CASE:
+            if (record->event.pressed) {
+                toggle_caps_word_mode(CWMODE_SPACE_SUB);
+            }
+            return false;
+
+        case CAPS_WORD_SNAKE_CASE:
+            if (record->event.pressed) {
+                toggle_caps_word_mode(CWMODE_SPACE_SUB);
+            }
+            return false;
     }
 
     return true;

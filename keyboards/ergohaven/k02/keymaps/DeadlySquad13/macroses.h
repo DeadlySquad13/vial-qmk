@@ -21,6 +21,9 @@ enum custom_keycodes {
     PASTE,
 
     CAPS_WORD,
+    CAPS_WORD_CAMEL_CASE,
+    CAPS_WORD_TITLE_CASE,
+    CAPS_WORD_SNAKE_CASE,
 };
 
 #endif

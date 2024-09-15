@@ -5,12 +5,12 @@
 #define _SYMB 2
 #define _MEDIA 3
 #define _GAME 4
-#define _NUM  5
-#define _FUNC 6
-#define _SETS 7
-#define _WORKSPACE 8
+#define _GAME_RIGHT 5
+#define _NUM  6
+#define _FUNC 7
+#define _SETS 8
+#define _WORKSPACE 9
 
-#define _NINE 9
 #define _TEN 10
 #define _ELEVEN 11
 #define _TWELVE 12
@@ -20,14 +20,15 @@
 #define _SIXTEEN 16
 
 // Layers.
-#define BASE      DF(_BASE)
-#define NAV       MO(_NAV)
-#define SYMB      OSL(_SYMB)
-#define MEDIA     MO(_MEDIA)
-#define GAME      DF(_GAME)
+#define BASE       DF(_BASE)
+#define NAV        MO(_NAV)
+#define SYMB       OSL(_SYMB)
+#define MEDIA      MO(_MEDIA)
+#define GAME       DF(_GAME)
+#define GAME_RIGHT DF(_GAME_RIGHT)
 // #define NUM       MO(_NUM)
-#define FUNC      MO(_FUNC)
-#define SETS      OSL(_SETS)
+#define FUNC       MO(_FUNC)
+#define SETS       OSL(_SETS)
 // #define WORKSPACE OSL(_WORKSPACE)
 
 // Tap-dance layers.

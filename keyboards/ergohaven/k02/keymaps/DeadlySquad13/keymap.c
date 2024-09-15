@@ -7,10 +7,10 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_BASE] = LAYOUT( \
-          KC_GRV, KC_1, KC_2,      KC_3,      KC_4,      KC_5,                         KC_6,      KC_7,      KC_8,      KC_9,      KC_0,    SETS, \
-          GAME,   KC_Q, KC_W,      KC_E,      KC_R,      KC_T,                         KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,    KC_LBRC, \
-          KC_TAB, KC_A, MT_LGUI_S, MT_LALT_D, MT_LCTL_F, KC_G,                         KC_H,      MT_RCTL_J, MT_RALT_K, MT_RGUI_L, KC_SCLN, KC_QUOT, \
-          MEDIA,  KC_Z, KC_X,      KC_C,      KC_V,      KC_B,                         KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH, KC_RSFT, \
+          KC_GRV, KC_1, KC_2,      KC_3,      KC_4,      KC_5,                             KC_6,      KC_7,      KC_8,      KC_9,      KC_0,    SETS, \
+          GAME,   KC_Q, KC_W,      KC_E,      KC_R,      KC_T,                             KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,    KC_LBRC, \
+          KC_TAB, KC_A, MT_LGUI_S, MT_LALT_D, MT_LCTL_F, KC_G,                             KC_H,      MT_RCTL_J, MT_RALT_K, MT_RGUI_L, KC_SCLN, KC_QUOT, \
+          MEDIA,  KC_Z, KC_X,      KC_C,      KC_V,      KC_B,                             KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH, KC_RSFT, \
                         FUNC,      DEL_NUM,   OSM_LSFT,  TD(WORKSPACE_NAV), SYMB,    SYMB, SPACE_NAV, OSM_RSFT,  KC_BSPC,   FUNC      \
         ),
 
@@ -39,10 +39,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // ),
 
         [_WORKSPACE] = LAYOUT( \
-          KC_GRV, KC_1, KC_2,   KC_3,      KC_4,      KC_5,                         KC_6,      KC_7,      KC_8,      KC_9,      KC_0,    KC_ESC, \
-          KC_ESC, KC_Q, KC_W,   KC_E,      KC_R,      KC_T,                         KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,    KC_LBRC, \
-          KC_TAB, KC_A, KC_S,   KC_D,      KC_F,      KC_G,                         KC_H,      TMUX,      WEZTERM,   VIM_WIN,   KC_SCLN, KC_QUOT, \
-          MEDIA,  KC_Z, KC_X,   KC_C,      KC_V,      KC_B,                         KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH, KC_RSFT, \
+          KC_GRV, KC_1, KC_2,   KC_3,      KC_4,      KC_5,                             KC_6,      KC_7,      KC_8,      KC_9,      KC_0,    KC_ESC, \
+          KC_ESC, KC_Q, KC_W,   KC_E,      KC_R,      KC_T,                             KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,    KC_LBRC, \
+          KC_TAB, KC_A, KC_S,   KC_D,      KC_F,      KC_G,                             KC_H,      TMUX,      WEZTERM,   VIM_WIN,   KC_SCLN, KC_QUOT, \
+          MEDIA,  KC_Z, KC_X,   KC_C,      KC_V,      KC_B,                             KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH, KC_RSFT, \
                         FUNC,   DEL_NUM,   OSM_LSFT,  TD(WORKSPACE_NAV), SYMB,    SYMB, SPACE_NAV, OSM_RSFT,  KC_BSPC,   FUNC      \
         ),
 
@@ -55,11 +55,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
 
         [_GAME] = LAYOUT( \
-            _______, _______, _______, _______, _______, _______,                           _______, _______,  _______, _______, _______, _______,
+            _______, _______, _______, _______, _______, _______,                           _______, _______,  _______, _______, _______, GAME_RIGHT,
             KC_ESC,  _______, KC_W,    _______, _______, _______,                           _______, _______,  _______, _______, _______, _______,
             KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    _______,                           _______, _______,  _______, _______, _______, _______,
             KC_LSFT, _______, _______, _______, _______, _______,                           _______, _______,  _______, _______, _______, KC_INS,
                               BASE,    _______, KC_LALT, KC_SPACE, KC_LCTL,        _______, _______, KC_ENTER, KC_BSPC, BASE \
+        ),
+
+        // May just change left hand to passthrough keys.
+        [_GAME_RIGHT] = LAYOUT( \
+            _______, _______, _______, _______, _______, _______,                           _______, _______,  _______, _______, _______, _______,
+            KC_ESC,  _______, KC_W,    _______, _______, _______,                           _______, _______,  _______, _______, _______, _______,
+            KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    _______,                           _______, KC_J,     KC_K,    KC_L,    KC_SCLN, _______,
+            KC_LSFT, _______, _______, _______, _______, _______,                           _______, _______,  _______, _______, _______, KC_INS,
+                              BASE,    _______, KC_LALT, KC_SPACE, KC_LCTL,        _______, _______, KC_ENTER, KC_BSPC, GAME \
         ),
 
         [_NUM] = LAYOUT( \

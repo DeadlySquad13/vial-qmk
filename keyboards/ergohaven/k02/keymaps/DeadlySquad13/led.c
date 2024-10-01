@@ -59,6 +59,9 @@ void render_layer_state(void) {
         case _GAME:
             oled_write_P(PSTR("Game\n"), false);
             break;
+         case _GAME_SHOOTER:
+            oled_write_P(PSTR("Shoot\n"), false);
+            break;
         case _GAME_RIGHT:
             oled_write_P(PSTR("GameR\n"), false);
             break;
@@ -76,9 +79,6 @@ void render_layer_state(void) {
             break;
          case _CAPS_WORD_SETS:
             oled_write_P(PSTR("CAPSW\n"), false);
-            break;
-         case _ELEVEN:
-            oled_write_P(PSTR("Elevn"), false);
             break;
          case _TWELVE:
             oled_write_P(PSTR("Twlve"), false);

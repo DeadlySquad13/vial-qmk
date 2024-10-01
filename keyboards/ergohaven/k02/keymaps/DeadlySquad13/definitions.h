@@ -5,14 +5,14 @@
 #define _SYMB 2
 #define _MEDIA 3
 #define _GAME 4
-#define _GAME_RIGHT 5
-#define _NUM  6
-#define _FUNC 7
-#define _SETS 8
-#define _WORKSPACE 9
-#define _CAPS_WORD_SETS 10
+#define _GAME_SHOOTER 5
+#define _GAME_RIGHT 6
+#define _NUM  7
+#define _FUNC 8
+#define _SETS 9
+#define _WORKSPACE 10
+#define _CAPS_WORD_SETS 11
 
-#define _ELEVEN 11
 #define _TWELVE 12
 #define _THIRTEEN 13
 #define _FOURTEEN 14
@@ -25,6 +25,7 @@
 #define SYMB           OSL(_SYMB)
 #define MEDIA          MO(_MEDIA)
 #define GAME           DF(_GAME)
+#define GAME_SHOOTER   DF(_GAME_SHOOTER)
 #define GAME_RIGHT     DF(_GAME_RIGHT)
 // #define NUM           MO(_NUM)
 #define FUNC           MO(_FUNC)

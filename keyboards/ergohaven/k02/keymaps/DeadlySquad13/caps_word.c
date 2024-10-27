@@ -11,8 +11,30 @@ bool caps_word_press_user(uint16_t keycode) {
     switch(g_caps_word_mode) {
         case CWMODE_NORMAL:
             switch (keycode) {
-                // Keycodes that continue Caps Word, with shift applied.
-                case KC_A ... KC_Z:
+                // * Keycodes that continue Caps Word, with shift applied.
+                // Ok for standard layouts (russian, for example).
+                // case KC_A ... KC_Z:
+
+                // * For hdn:
+                // - skip H (',').
+                case KC_A ... KC_G:
+                // - skip N ('-'), O ('"') and P ("'").
+                case KC_I ... KC_M:
+                // - skip U ('.').
+                case KC_Q ... KC_T:
+                // - skip Y ('/').
+                case KC_V ... KC_X:
+                case KC_Z:
+                // Add 'h'.
+                case KC_SCLN:
+                // Add 'j'.
+                case KC_QUOT:
+                // Add 'o'
+                case KC_COMM:
+                // Add 'y'
+                case KC_DOT:
+                // Add 'k'.
+                case KC_SLSH:
                     add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
                     return true;
 
@@ -53,6 +75,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case CWMODE_SPACE_SUB:
         case CWMODE_PASCAL_CASE:
             switch (keycode) {
+                    return false;
                 case KC_SPACE:
                     // If the last key was NOT a space, then register it having been pressed and
                     // move on as normal
@@ -67,7 +90,30 @@ bool caps_word_press_user(uint16_t keycode) {
                     }
 
                 // Keys that do NOT break the Caps Word state
-                case KC_A ... KC_Z:
+                // * Keycodes that continue Caps Word, with shift applied.
+                // Ok for standard layouts (russian, for example).
+                // case KC_A ... KC_Z:
+
+                // * For hdn:
+                // - skip H (',').
+                case KC_A ... KC_G:
+                // - skip N ('-'), O ('"') and P ("'").
+                case KC_I ... KC_M:
+                // - skip U ('.').
+                case KC_Q ... KC_T:
+                // - skip Y ('/').
+                case KC_V ... KC_X:
+                case KC_Z:
+                // Add 'h'.
+                case KC_SCLN:
+                // Add 'j'.
+                case KC_QUOT:
+                // Add 'o'
+                case KC_COMM:
+                // Add 'y'
+                case KC_DOT:
+                // Add 'k'.
+                case KC_SLSH:
                     if (g_caps_word_first_key) {
                         switch (g_caps_word_mode) {
                             case CWMODE_TITLE_CASE:
@@ -113,9 +159,34 @@ bool caps_word_press_user(uint16_t keycode) {
                     // If we're in CONSTANT_CASE, then we need to upper case letters
                     if (
                         g_caps_word_mode == CWMODE_CONSTANT_CASE
-                        && (KC_A <= keycode && keycode <= KC_Z)
+                        // Ok for standard layouts (russian, for example).
+                        // && (KC_A <= keycode && keycode <= KC_Z)
                     ) {
-                        add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+                        // * For hdn:
+                        switch (keycode) {
+                            // - skip H (',').
+                            case KC_A ... KC_G:
+                            // - skip N ('-'), O ('"') and P ("'").
+                            case KC_I ... KC_M:
+                            // - skip U ('.').
+                            case KC_Q ... KC_T:
+                            // - skip Y ('/').
+                            case KC_V ... KC_X:
+                            case KC_Z:
+                            // Add 'h'.
+                            case KC_SCLN:
+                            // Add 'j'.
+                            case KC_QUOT:
+                            // Add 'o'
+                            case KC_COMM:
+                            // Add 'y'
+                            case KC_DOT:
+                            // Add 'k'.
+                            case KC_SLSH:
+                                add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+                            default:
+                                break;
+                        }
                     }
                     return true;
 
